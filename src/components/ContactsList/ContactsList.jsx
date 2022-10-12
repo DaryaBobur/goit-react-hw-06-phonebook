@@ -7,13 +7,11 @@ import {removeContact} from '../../redux/slice'
 const ContactsList = () => {
    const dispatch = useDispatch();
    const contact = useSelector(state => state.contacts);
-   console.log(contact.id)
-   // const handleDelete = () => dispatch(removeContact())
-   // console.log(handleDelete())
+
    return (  
       <Contacts>
          {contact.map(({ name, number, id }) => 
-            <li key={id}>
+            <li key={nanoid()}>
                <p>- {name}: {number}</p>
                <button type='button' onClick={()=> dispatch(removeContact(id))}>Delete</button>
             </li>)
@@ -29,7 +27,6 @@ ContactsList.propTypes = {
       number: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
    }))
-   
 }
 
 export default ContactsList;
