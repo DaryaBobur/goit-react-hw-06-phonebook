@@ -1,32 +1,28 @@
-import { useState, useEffect } from 'react';
+// import { useState } from 'react';
 // import { nanoid } from 'nanoid';
 import ContactForm from '../ContactsForm/ContactsForm';
 import ContactsList from '../ContactsList/ContactsList';
 import Filter from '../Filter/Filter';
 import { ContainerApp, Title, Subtitle } from './AppStyled';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { configureStore } from '@reduxjs/toolkit'
-import { addContact, contactsSlice } from 'redux/slice';
-import { useSelector, useDispatch } from 'react-redux';
-
-
-export const appContacts = {
-  contacts: [],
-  filter: ""
-}
+import { addContact, contactsSlice, filtersSlice } from 'redux/slice';
+import { useDispatch } from 'react-redux';
+import { filterName  } from 'redux/slice';
 
 export const store = configureStore({
   reducer: {
-contacts: contactsSlice.reducer
+contacts: contactsSlice.reducer,
+filter: filtersSlice.reducer
   },
 })
 
 const App = () => {
 
-  const dataContacts = useSelector(state => state)
-  console.log(dataContacts.contacts)
+  // const dataContacts = useSelector(state => state)
+  // console.log(dataContacts.contacts)
   const dispatch = useDispatch();
  
 
@@ -34,7 +30,7 @@ const App = () => {
   //   JSON.parse(localStorage.getItem('contacts')) ?? []
   // );
   
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
   // useEffect(() => {
   //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -57,9 +53,13 @@ const App = () => {
   // const removeContact = (id) => {
   //   setContacts(prevState => prevState.filter((contact) => contact.id !== id));
   // };
+// const dataFilter = useSelector(state => state.filterName)
+// console.log(dataFilter)
 
   // const filterNamesContacts = e => {
-  //   setFilter(e.currentTarget.value);
+  //   // setFilter(e.currentTarget.value);
+  //   dispatch(filter(e.target.value))
+
   // };
 
   // const getFilteredContacts = () => {
@@ -93,8 +93,8 @@ const App = () => {
       <Subtitle>Contacts</Subtitle>
 
       <Filter 
-        value={filter} 
-        // onChange={filterNamesContacts}
+        // value={filter} 
+        onChange={()=>dispatch(filterName())}
       />
 
       <ContactsList 
