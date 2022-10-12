@@ -17,7 +17,8 @@ input {
     outline: none;
     border-image: none;
     border-width: 1px ;
-   border-radius: 2px;
+    border-radius: 2px;
+    caret-color: #2196f3;
 
     :focus {
         border-color: #2196f3;
