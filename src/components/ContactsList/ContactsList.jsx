@@ -1,8 +1,8 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-import { Contacts } from './ContactsListStyled';
 import { useDispatch } from 'react-redux';
-import {removeContact} from '../../redux/contactsSlice'
+import { Contacts } from './ContactsListStyled';
+import { removeContact } from '../../redux/contactsSlice'
 
 const ContactsList = ({ contacts }) => {
    const dispatch = useDispatch();
@@ -20,13 +20,13 @@ const ContactsList = ({ contacts }) => {
    )
 }
 
-// ContactsList.propTypes = {
-//    removeContact: PropTypes.func,
-//    contacts: PropTypes.arrayOf(PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//       id: PropTypes.string.isRequired,
-//    }))
-// }
+ContactsList.propTypes = {
+   removeContact: PropTypes.func,
+   contacts: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+   }))
+}
 
 export default ContactsList;
