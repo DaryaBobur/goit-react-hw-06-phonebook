@@ -1,47 +1,54 @@
 // import PropTypes from 'prop-types';
 import { Label } from "./FilterStyled";
 import { useDispatch, useSelector } from 'react-redux';
-import { filterName } from 'redux/slice';
+import { filterName } from 'redux/filterSlice';
+import { getFilter, getContacts } from "redux/selectors";
+
+import ContactsList from "components/ContactsList/ContactsList";
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const dataFilter = useSelector(state => state.filter.filterContacts)
+  const dataFilter = useSelector(getFilter);
+  const dataContacts = useSelector(getContacts);
+// console.log(dataContacts)
 
   const filterNamesContacts = e => {
     dispatch(filterName(e.target.value))
   };
-
-
-
-  // const getFilteredContacts = () => {
+  
+  const getFilteredContacts = () => {
  
-  //   if(!filter) {
-  //     return contacts;
-  //   }
+    if(!dataFilter) {
+      return dataContacts;
+    }
 
-  //   const normalizedFilter = filter.toLocaleLowerCase();
+    const normalizedFilter = dataFilter.toLocaleLowerCase();
 
-  //   const filteredContacts = contacts.filter(({ name }) => {
-  //     const normalizedName = name.toLocaleLowerCase();
-  //     return normalizedName.includes(normalizedFilter);
-  //   })
+    const filteredContacts = dataContacts.filter(({ name }) => {
+      const normalizedName = name.toLocaleLowerCase();
+      return normalizedName.includes(normalizedFilter);
+    })
 
-  //   return filteredContacts;
+    return filteredContacts;
     
-  // };
-
-
+  };
+  // console.log(getFilteredContacts())
 
     return (
+      <>
       <Label>
       Find contacts by name
       <input type="text" 
       value={dataFilter} 
       name="filter" 
       onChange={filterNamesContacts} />
-    </Label>)
+    </Label>
+
+      <ContactsList 
+      contacts={getFilteredContacts()} />
+  </>
+  )
     }
-  
 
 
 // Filter.propTypes = {
